@@ -54,6 +54,11 @@ namespace Калькулятор_GUI_V2
                 try
                 {
                     Label.Text = new DataTable().Compute(Label.Text, null).ToString().Replace(',', '.');
+                    if (Label.Text == "∞")
+                    {
+                        MessageBox.Show("Ошибка!");
+                        Label.Text = "0";
+                    }
                 }
                 catch
                 {
