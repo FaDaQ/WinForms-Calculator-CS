@@ -1,7 +1,4 @@
-using Microsoft.CodeAnalysis.CSharp.Scripting;
 using System.Data;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 
 namespace Калькулятор_GUI_V2
 {
@@ -78,6 +75,29 @@ namespace Калькулятор_GUI_V2
                 mainButton.Click += Click;
             }
         }
+        class EraseButton : ACalcButton
+        {
+            public EraseButton(string text, Label label, Point location, int width, int height)
+            {
+                mainButton.Size = new Size(width, height);
+                mainButton.Location = location;
+                mainButton.Text = text;
+                Label = label;
+                mainButton.Click += Click;
+            }
+
+            protected override void Click(object sender, EventArgs e)
+            {
+                try
+                {
+                    Label.Text = Label.Text.Substring(0, Label.Text.Length - 1);
+                }
+                catch
+                {
+
+                }
+            }
+        } 
 
         public Form1()
         {
@@ -87,39 +107,39 @@ namespace Калькулятор_GUI_V2
             List<ACalcButton> calcBtns = new List<ACalcButton>();
 
             int FirstBtnPosX = 40;
-            int btnWidth = 100;
-            int btnHeight = 100;
+            int digitBtnWidth = 100;
+            int digitBtnHeight = 100;
             Point buttonPos = new Point(FirstBtnPosX, 140);
-            //calcBtns.Add(new ActionSignButton("(", Expression, new Point(buttonPos.X - 10, buttonPos.Y), 40, btnHeight));
+            calcBtns.Add(new EraseButton("ᐸ", Expression, new Point(FirstBtnPosX + 200, 540), digitBtnWidth, 80));
 
             for (int i = 1; i <= 9; i++)
             {
-                calcBtns.Add(new DigitButton(i, Expression, buttonPos, btnWidth, btnHeight));
+                calcBtns.Add(new DigitButton(i, Expression, buttonPos, digitBtnWidth, digitBtnHeight));
                 if (buttonPos.X < 212)
-                    buttonPos.X += btnWidth;
+                    buttonPos.X += digitBtnWidth;
                 else
                 {
                     buttonPos.X = FirstBtnPosX;
-                    buttonPos.Y += btnHeight;
+                    buttonPos.Y += digitBtnHeight;
                 }
 
             }
-      
-            calcBtns.Add(new ActionSignButton("%", Expression, new Point(FirstBtnPosX, buttonPos.Y), btnWidth, btnHeight));
+
+            calcBtns.Add(new ActionSignButton("%", Expression, new Point(FirstBtnPosX, buttonPos.Y), digitBtnWidth, digitBtnHeight));
             calcBtns.Add(new ActionSignButton("*", Expression, new Point(buttonPos.X + 300, buttonPos.Y), 80, 100));
             calcBtns.Add(new ActionSignButton("/", Expression, new Point(buttonPos.X + 300, buttonPos.Y -= 100), 80, 100));
             calcBtns.Add(new ActionSignButton("+", Expression, new Point(buttonPos.X + 300, buttonPos.Y -= 100), 80, 100));
             calcBtns.Add(new ActionSignButton("-", Expression, new Point(buttonPos.X + 300, buttonPos.Y -= 100), 80, 100));
 
             buttonPos = new Point(FirstBtnPosX, 440);
-            calcBtns.Add(new DigitButton(0, Expression, new Point(buttonPos.X += btnWidth, buttonPos.Y), btnWidth, btnHeight));
+            calcBtns.Add(new DigitButton(0, Expression, new Point(buttonPos.X += digitBtnWidth, buttonPos.Y), digitBtnWidth, digitBtnHeight));
             
-            calcBtns.Add(new EqualButton(Expression, new Point(buttonPos.X += btnWidth, buttonPos.Y), btnWidth, btnHeight));
+            calcBtns.Add(new EqualButton(Expression, new Point(buttonPos.X += digitBtnWidth, buttonPos.Y), digitBtnWidth, digitBtnHeight));
 
             buttonPos.X += 180; buttonPos.Y -= 300;
-            calcBtns.Add(new ActionSignButton(")", Expression, buttonPos, 40, btnHeight));
+            calcBtns.Add(new ActionSignButton(")", Expression, buttonPos, 40, digitBtnHeight));
             buttonPos.X = FirstBtnPosX - 40;
-            calcBtns.Add(new ActionSignButton("(", Expression, buttonPos, 40, btnHeight));
+            calcBtns.Add(new ActionSignButton("(", Expression, buttonPos, 40, digitBtnHeight));
 
             foreach (var button in calcBtns)
                 button.Place(this);
