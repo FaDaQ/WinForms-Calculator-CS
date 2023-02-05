@@ -32,6 +32,8 @@
             this.Expression = new System.Windows.Forms.Label();
             this.MinimizeButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
+            this.StandartMode = new System.Windows.Forms.Button();
+            this.IPMode = new System.Windows.Forms.Button();
             this.ExpressionPanel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -90,11 +92,37 @@
             this.CloseButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
             this.CloseButton.UseVisualStyleBackColor = false;
             // 
+            // StandartMode
+            // 
+            this.StandartMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.StandartMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.StandartMode.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.StandartMode.Location = new System.Drawing.Point(12, 663);
+            this.StandartMode.Name = "StandartMode";
+            this.StandartMode.Size = new System.Drawing.Size(75, 23);
+            this.StandartMode.TabIndex = 3;
+            this.StandartMode.Text = "Обычный";
+            this.StandartMode.UseVisualStyleBackColor = false;
+            // 
+            // IPMode
+            // 
+            this.IPMode.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.IPMode.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.IPMode.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.IPMode.Location = new System.Drawing.Point(93, 663);
+            this.IPMode.Name = "IPMode";
+            this.IPMode.Size = new System.Drawing.Size(75, 23);
+            this.IPMode.TabIndex = 4;
+            this.IPMode.Text = "IP";
+            this.IPMode.UseVisualStyleBackColor = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(584, 661);
+            this.ClientSize = new System.Drawing.Size(584, 698);
+            this.Controls.Add(this.IPMode);
+            this.Controls.Add(this.StandartMode);
             this.Controls.Add(this.MinimizeButton);
             this.Controls.Add(this.CloseButton);
             this.Controls.Add(this.ExpressionPanel);
@@ -113,5 +141,7 @@
         private Label Expression;
         private Button CloseButton;
         private Button MinimizeButton;
+        private Button StandartMode;
+        private Button IPMode;
     }
 }

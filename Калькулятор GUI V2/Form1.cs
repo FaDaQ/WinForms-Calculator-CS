@@ -24,6 +24,16 @@ namespace Калькулятор_GUI_V2
                                        ? mainButton.Text
                                        : Label.Text + mainButton.Text;
             }
+            new public void Hide()
+            {
+                mainButton.Hide();
+                mainButton.Enabled = false;
+            }
+            new public void Show()
+            {
+                mainButton.Show();
+                mainButton.Enabled = true;
+            }
 
             public Button mainButton { get; protected set; } = new Button();
             public Label Label { get; protected set; } = new Label();
@@ -140,8 +150,10 @@ namespace Калькулятор_GUI_V2
             this.MinimizeButton.FlatAppearance.BorderSize = 0;
             this.MouseDown += DragWindow;
 
-            List<ACalcButton> calcBtns = new List<ACalcButton>();
+            this.IPMode.Click += IPModeClick;
+            this.StandartMode.Click += StandartModeClick;
 
+            #region Обычный калькулятор
             int startBtnPosX = (this.Size.Width / 2) - 200;
             int endBtnPosX = 300;
             int startBtnPosY = 140;
@@ -190,19 +202,22 @@ namespace Калькулятор_GUI_V2
 
             foreach (var button in calcBtns)
                 button.Place(this);
+            #endregion
 
+            #region IP Калькулятор
+
+            #endregion
         }
 
-        private void Minimize(object sender, EventArgs e)
+        public void Minimize(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
         }
-        private void Close(object sender, EventArgs e)
+        public void Close(object sender, EventArgs e)
         {
             this.Close();
         }
-        private void DragWindow(object sender,
-        System.Windows.Forms.MouseEventArgs e)
+        public void DragWindow(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -210,6 +225,18 @@ namespace Калькулятор_GUI_V2
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
+        public void IPModeClick(object sender, EventArgs e)
+        {
+            foreach (var button in calcBtns)
+                button.Hide();
+        } 
+        public void StandartModeClick(object sender, EventArgs e)
+        {
+            foreach (var button in calcBtns)
+                button.Show();
+            
+        }
+        #region Библиотека для управления перетаскиванием мышкой
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
 
@@ -218,5 +245,7 @@ namespace Калькулятор_GUI_V2
                          int Msg, int wParam, int lParam);
         [DllImportAttribute("user32.dll")]
         public static extern bool ReleaseCapture();
+        #endregion
+        private List<ACalcButton> calcBtns = new List<ACalcButton>();
     }
 }
